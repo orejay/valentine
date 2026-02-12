@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Be My Valentine?</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e, #fecfef);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: white;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      position: relative;
+    }
+
+    button {
+      padding: 12px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      margin: 10px;
+      position: relative;
+    }
+
+    #yesBtn {
+      background-color: #ff4d6d;
+      color: white;
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.1);
+    }
+
+    #noBtn {
+      background-color: white;
+      color: #ff4d6d;
+      position: absolute;
+    }
+
+    .emoji {
+      position: absolute;
+      font-size: 24px;
+      animation: float 3s linear infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-200px) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Will You Be My Valentine? 💖</h1>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes 💕</button>
+      <button id="noBtn">No 😢</button>
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+
+    // Make the No button dodge the mouse
+    noBtn.addEventListener("mouseover", () => {
+      const maxX = window.innerWidth - noBtn.offsetWidth;
+      const maxY = window.innerHeight - noBtn.offsetHeight;
+
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+
+      noBtn.style.left = randomX + "px";
+      noBtn.style.top = randomY + "px";
+    });
+
+    // When Yes is clicked
+    yesBtn.addEventListener("click", () => {
+      document.body.innerHTML = `
+        <div style="
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          height:100vh;
+          font-size:2.5rem;
+          color:white;
+          text-align:center;
+        ">
+          Yaaay!!! 💖 You just made me the happiest person alive! 💕
+        </div>
+      `;
+
+      // Create floating emojis
+      setInterval(() => {
+        const emoji = document.createElement("div");
+        emoji.classList.add("emoji");
+        emoji.innerHTML = "💖";
+
+        emoji.style.left = Math.random() * window.innerWidth + "px";
+        emoji.style.top = window.innerHeight + "px";
+
+        document.body.appendChild(emoji);
+
+        setTimeout(() => {
+          emoji.remove();
+        }, 3000);
+      }, 200);
+    });
+  </script>
+</body>
+</html>
